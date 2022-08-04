@@ -61,11 +61,13 @@ print(df.to_string())
 outdir = "/tmp/output2/"
 os.mkdir(outdir)
 for f, age in zip(file_list, age_list):
+    print("Processing:", f, age)
     shutil.copy(f, outdir)
     if int(age) >= 60:
         heart_condition = "unhealthy"
     else:
         heart_condition = "healthy"
+    print("heart_condition = ", heart_condition)
     parallels_files_meta.infin_log_artifact(f, "output", age=age, heart_condition=heart_condition)
 
 
