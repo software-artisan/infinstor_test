@@ -1,7 +1,7 @@
 name: parallel-age
 
 docker_env:
-  image:  mlflow-docker-example
+  image:  age-parallel-image
 
 entry_points:
   main:
