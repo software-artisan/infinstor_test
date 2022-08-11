@@ -7,13 +7,13 @@
 import os
 import mlflow
 import shutil
-from infinstor import infin_files_meta
+from parallels_plugin import parallels_files_meta
 
 
 # In[5]:
 
 
-df = infin_files_meta.list_files_meta('isstage5-experiments', '', input_name='in1')
+df = parallels_files_meta.list_files_meta('isstage5-experiments', '', input_name='in1')
 
 
 # In[ ]:
@@ -25,15 +25,14 @@ print(df.to_string())
 # In[6]:
 
 
-file_list = infin_files_meta.get_file_paths_local(df)
+file_list = parallels_files_meta.get_file_paths_local(df)
 print(file_list)
 
 
 # In[ ]:
 
 
-df = df[df.apply(lambda row: '.infinstor' not in row['FileName'], axis=1)]
-file_list = infin_files_meta.get_file_paths_local(df)
+file_list = parallels_files_meta.get_file_paths_local(df)
 print(file_list)
 
 
@@ -55,6 +54,6 @@ for f in file_list:
 # In[8]:
 
 
-infin_files_meta.infin_log_artifacts(outdir, "output")
+parallels_files_meta.infin_log_artifacts(outdir, "output")
 
 
