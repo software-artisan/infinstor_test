@@ -1,8 +1,0 @@
-name: parallel-age
-
-docker_env:
-  image:  age-parallel-image
-
-entry_points:
-  main:
-    command: "python xformcode.py"
