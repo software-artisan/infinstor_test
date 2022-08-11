@@ -7,13 +7,13 @@
 import os
 import mlflow
 import shutil
-from infinstor import infin_files_meta
+from parallels_plugin import parallels_files_meta
 
 
 # In[5]:
 
 
-df = infin_files_meta.list_files_meta('isstage5-experiments', '', input_name='in1')
+df = parallels_files_meta.list_files_meta('isstage5-experiments', '', input_name='in1')
 
 
 # In[ ]:
@@ -25,7 +25,7 @@ print(df.to_string())
 # In[6]:
 
 
-file_list = infin_files_meta.get_file_paths_local(df)
+file_list = parallels_files_meta.get_file_paths_local(df)
 print(file_list)
 
 
@@ -45,7 +45,7 @@ df['age'] = df.apply(lambda row: os.path.basename(os.path.dirname(row['FileName'
 
 
 age_list = df['age'].to_list()
-file_list = infin_files_meta.get_file_paths_local(df)
+file_list = parallels_files_meta.get_file_paths_local(df)
 print(file_list)
 
 
@@ -61,17 +61,19 @@ print(df.to_string())
 outdir = "/tmp/output2/"
 os.mkdir(outdir)
 for f, age in zip(file_list, age_list):
+    print("Processing:", f, age)
     shutil.copy(f, outdir)
     if int(age) >= 60:
         heart_condition = "unhealthy"
     else:
         heart_condition = "healthy"
-    infin_files_meta.infin_log_artifact(f, "output", age=age, heart_condition=heart_condition)
+    print("heart_condition = ", heart_condition)
+    parallels_files_meta.infin_log_artifact(f, "output", age=age, heart_condition=heart_condition)
 
 
 # In[8]:
 
 
-#infin_files_meta.infin_log_artifacts(outdir, "output")
+#parallels_files_meta.infin_log_artifacts(outdir, "output")
 
 
