@@ -7,13 +7,13 @@
 import os
 import mlflow
 import shutil
-from parallels_plugin import parallels_files_meta
+from parallels_plugin import parallels_core
 
 
 # In[5]:
 
 
-df = parallels_files_meta.list_files_meta('isstage5-experiments', '', input_name='in1')
+df = parallels_core.list('isstage5-experiments', input_name='in1')
 
 
 # In[ ]:
@@ -25,14 +25,14 @@ print(df.to_string())
 # In[6]:
 
 
-file_list = parallels_files_meta.get_file_paths_local(df)
+file_list = parallels_core.get_local_paths(df)
 print(file_list)
 
 
 # In[ ]:
 
 
-file_list = parallels_files_meta.get_file_paths_local(df)
+file_list = parallels_core.get_local_paths(df)
 print(file_list)
 
 
@@ -54,6 +54,6 @@ for f in file_list:
 # In[8]:
 
 
-parallels_files_meta.infin_log_artifacts(outdir, "output")
+parallels_core.parallels_log_artifacts(outdir, "output")
 
 
