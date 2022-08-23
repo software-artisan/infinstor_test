@@ -1,0 +1,44 @@
+import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+import pandas as pd
+import tensorflow_datasets as tfds
+from parallels_plugin import parallels_core
+import os
+
+
+test_df = parallels_core.list("/Users/jitendra/Kaggle/data/Bird-Species/bird_species/test/", "data_input")
+
+model_df = parallels_core.list('/Users/jitendra/Kaggle/data/Bird-Species/bird_species/model/', "model_input")
+
+
+model_file = parallels_core.get_local_paths(model_df)[0]
+print(model_file)
+model = keras.models.load_model(model_file)
+
+data_files = parallels_core.get_local_paths(test_df)
+data_folder = os.path.dirname(data_files[0])
+print(data_folder)
+ds = tf.keras.utils.image_dataset_from_directory(
+    data_folder,
+    image_size=(112,112))
+
+ds_numpy_iter = tfds.as_numpy(ds) 
+
+
+correct_labels = 0
+num_predictions = 0
+batch_num=0
+for i in ds_numpy:
+    if batch_num % 5 == 0:
+        print('Predicting batch {}'.format(batch_num))
+    batch_num += 1
+    img, label = i
+    predictions = model.predict(img)
+    predicted_classes = np.argmax(predictions, axis=1)
+    correct_labels += np.sum(label == predicted_classes)
+    num_predictions += predicted_classes.shape[0]
+    
+accuracy = float(correct_labels)/num_predictions
+
+print("Number of Predictions = {},\nCorrect Predictions = {},\nAccuracy = {}".format(num_predictions, correct_labels, accuracy))
