@@ -24,13 +24,14 @@ ds = tf.keras.utils.image_dataset_from_directory(
     data_folder,
     image_size=(112,112))
 
+print("DEBUG get dataset iterator")
 ds_numpy_iter = tfds.as_numpy(ds) 
 
-
+print("DEBUG Now iterate over dataset and perform predictions")
 correct_labels = 0
 num_predictions = 0
 batch_num=0
-for i in ds_numpy:
+for i in ds_numpy_iter:
     if batch_num % 5 == 0:
         print('Predicting batch {}'.format(batch_num))
     batch_num += 1
