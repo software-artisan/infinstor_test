@@ -11,13 +11,14 @@ test_df = parallels_core.list("/Users/jitendra/Kaggle/data/Bird-Species/bird_spe
 
 model_df = parallels_core.list('/Users/jitendra/Kaggle/data/Bird-Species/bird_species/model/', "model_input")
 
+print(test_df['FileName'].to_list()[0])
 
 model_file = parallels_core.get_local_paths(model_df)[0]
 print(model_file)
 model = keras.models.load_model(model_file)
 
 data_files = parallels_core.get_local_paths(test_df)
-data_folder = os.path.dirname(data_files[0])
+data_folder = os.path.dirname(os.path.dirname(data_files[0]))
 print(data_folder)
 ds = tf.keras.utils.image_dataset_from_directory(
     data_folder,
