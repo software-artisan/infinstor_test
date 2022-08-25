@@ -26,7 +26,7 @@ print(data_files)
 
 ds = tf.keras.utils.image_dataset_from_directory(
     data_folder,
-    labels = [75, 139, 292, 299, 399],
+    labels = [75,75,75,75,75,139,139,139,139,139,292,292,292,292,292,299,299,299,299,299,399,399,399,399,399],
     image_size=(112,112))
 
 print("DEBUG get dataset iterator")
