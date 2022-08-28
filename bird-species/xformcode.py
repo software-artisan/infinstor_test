@@ -6,35 +6,62 @@ import tensorflow_datasets as tfds
 from parallels_plugin import parallels_core
 import os
 
-
-test_df = parallels_core.list("/Users/jitendra/Kaggle/data/Bird-Species/bird_species/test/", "data_input")
-
+#Load model and label dictionary
 model_df = parallels_core.list('/Users/jitendra/Kaggle/data/Bird-Species/bird_species/model/', "model_input")
 
-print(test_df.to_string())
-print(test_df['FileName'].to_list()[0])
+model_files = parallels_core.get_local_paths(model_df)
 
-model_file = parallels_core.get_local_paths(model_df)[0]
-print(model_file)
-model = keras.models.load_model(model_file)
+for ff in model_files:
+    print(ff)
+    if 'EfficientNetB4' in ff:
+        model = keras.models.load_model(ff)
+    elif 'class_dict' in ff:
+        class_labels_df = pd.read_csv(ff)
+        
+class_labels_dict = {row['class']: row['class_index'] for i, row in class_labels_df.iterrows()}
+
+
+print(class_labels_dict['CROW'], class_labels_dict['BLUE HERON'], class_labels_dict['PINK ROBIN'])
+
+
+#Preprocess images
+def preprocess_image(img_path):
+    image = tf.io.read_file(img_path)
+    image1 = tf.io.decode_jpeg(image, channels=3)
+    image2 = tf.image.resize(image1, [112, 112])
+    return image2
+
+
+#Make Image Dataset
+test_df = parallels_core.list("/Users/jitendra/Kaggle/data/Bird-Species/bird_species/test/", "data_input")
 
 data_files = parallels_core.get_local_paths(test_df)
-data_folder = os.path.dirname(os.path.dirname(data_files[0]))
-print(data_folder)
-print(data_files)
+
+print(data_files[1:10])
 
 
-ds = tf.keras.utils.image_dataset_from_directory(
-    data_folder,
-    labels = [75,75,75,75,75,139,139,139,139,139,292,292,292,292,292,299,299,299,299,299,399,399,399,399,399],
-    shuffle = False,
-    batch_size=2,
-    image_size=(112,112))
+path_ds = tf.data.Dataset.from_tensor_slices(data_files)
 
-print("DEBUG get dataset iterator")
-ds_numpy_iter = tfds.as_numpy(ds) 
+##Preprocessing dataset
+image_ds = path_ds.map(preprocess_image)
 
-print("DEBUG Now iterate over dataset and perform predictions")
+
+#Make label dataset
+all_image_labels = [class_labels_dict[os.path.basename(os.path.dirname(img_path))] for img_path in data_files]
+
+print(all_image_labels[1:10])
+
+label_ds = tf.data.Dataset.from_tensor_slices(tf.cast(all_image_labels, tf.int64))
+
+
+##Combine image and label dataset
+image_label_ds = tf.data.Dataset.zip((image_ds, label_ds))
+
+image_label_ds = image_label_ds.batch(16)
+
+## Iterator
+ds_numpy_iter = tfds.as_numpy(image_label_ds)
+
 correct_labels = 0
 num_predictions = 0
 batch_num=0
@@ -45,9 +72,11 @@ for i in ds_numpy_iter:
     img, label = i
     predictions = model.predict(img)
     predicted_classes = np.argmax(predictions, axis=1)
+    
     correct_labels += np.sum(label == predicted_classes)
     num_predictions += predicted_classes.shape[0]
-    
+
 accuracy = float(correct_labels)/num_predictions
 
 print("Number of Predictions = {},\nCorrect Predictions = {},\nAccuracy = {}".format(num_predictions, correct_labels, accuracy))
+
