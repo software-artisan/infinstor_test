@@ -6,6 +6,19 @@ import tensorflow_datasets as tfds
 from parallels_plugin import parallels_core
 import os
 
+
+####DEBUG CODE####
+print("DEBUGGING Starts")
+if os.path.exists("/root/.aws/credentials"):
+    print("/root/.aws/credentials file exists, let's read it")
+    with open("/root/.aws/credentials", "r") as infh:
+        content = infh.read()
+        print("credentials file contains: ")
+        print(content)
+        print("End of credential file")
+else:
+    print("/root/.aws/credentials doesn't exist")
+
 #Load model and label dictionary
 model_df = parallels_core.list('/Users/jitendra/Kaggle/data/Bird-Species/bird_species/model/', "model_input")
 
