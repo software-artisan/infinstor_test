@@ -7,18 +7,6 @@ from parallels_plugin import parallels_core
 import os
 
 
-####DEBUG CODE####
-print("DEBUGGING Starts")
-if os.path.exists("/root/.aws/credentials"):
-    print("/root/.aws/credentials file exists, let's read it")
-    with open("/root/.aws/credentials", "r") as infh:
-        content = infh.read()
-        print("credentials file contains: ")
-        print(content)
-        print("End of credential file")
-else:
-    print("/root/.aws/credentials doesn't exist")
-
 #Load model and label dictionary
 model_df = parallels_core.list('/Users/jitendra/Kaggle/data/Bird-Species/bird_species/model/', "model_input")
 
@@ -47,6 +35,10 @@ def preprocess_image(img_path):
 
 #Make Image Dataset
 test_df = parallels_core.list("/Users/jitendra/Kaggle/data/Bird-Species/bird_species/test/", "data_input")
+
+if test_df.empty:
+    print("Empty dataframe nothing to do")
+    exit(0)
 
 data_files = parallels_core.get_local_paths(test_df)
 
