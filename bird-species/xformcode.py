@@ -5,7 +5,10 @@ import pandas as pd
 import tensorflow_datasets as tfds
 from parallels_plugin import parallels_core
 import os
+import sys
 
+
+print("Arguments if any: ", sys.argv)
 
 #Load model and label dictionary
 model_df = parallels_core.list('/Users/jitendra/Kaggle/data/Bird-Species/bird_species/model/', "model_input")
