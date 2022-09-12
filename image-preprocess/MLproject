@@ -1,7 +1,7 @@
-name: bird-species
+name: image-preprocessing
 
 docker_env:
-  image:  bird-species-image
+  image:  preprocessing-image
 
 entry_points:
   main:
