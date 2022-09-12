@@ -50,4 +50,4 @@ for image, path in image_path_iter:
     dst_path = os.path.join(tmpdir, species_name, img_file_name)
     os.makedirs(os.path.dirname(dst_path), exist_ok=True)
     writer = tf.keras.utils.save_img(os.path.join(tmpdir, species_name, img_file_name), image)
-    parallels_core.parallels_log_artifact(dst_path, species_name)
+    parallels_core.parallels_log_artifact(dst_path, os.path.join("output", species_name))
