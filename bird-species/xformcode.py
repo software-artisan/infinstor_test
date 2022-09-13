@@ -58,7 +58,7 @@ image_ds = path_ds.map(preprocess_image)
 label_key = os.path.basename(os.path.dirname(img_path))
 if '_' in label_key:
     label_key = label_key.replace('_', ' ')
-all_image_labels = [class_labels_dict[os.path.basename(os.path.dirname(img_path))] for img_path in data_files]
+all_image_labels = [class_labels_dict[label_key] for img_path in data_files]
 
 print(all_image_labels[1:10])
 
