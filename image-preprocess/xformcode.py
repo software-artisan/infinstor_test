@@ -46,6 +46,7 @@ for image, path in image_path_iter:
     path = path[0].decode('utf-8')
     img_file_name = os.path.basename(path)
     species_name = os.path.basename(os.path.dirname(path))
+    species_name = species_name.replace(' ', '_')
     image = image.reshape((112, 112, 3))
     dst_path = os.path.join(tmpdir, species_name, img_file_name)
     os.makedirs(os.path.dirname(dst_path), exist_ok=True)
