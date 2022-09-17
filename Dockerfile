@@ -1,4 +1,4 @@
-FROM condaforge/miniforge3
+FROM FROM tensorflow/tensorflow
 
 RUN pip install mlflow>=1.0 \
     && pip install azure-storage-blob==12.3.0 \
