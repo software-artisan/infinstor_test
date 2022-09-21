@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import tensorflow_datasets as tfds
 import tensorflow_addons as tfa
-from parallels_plugin import parallels_core
+from concurrent_plugin import concurrent_core
 import tempfile
 import os
 
@@ -21,9 +21,9 @@ def sharpen_image(image):
 
 
 #Make Image Dataset
-test_df = parallels_core.list("/Users/jitendra/Kaggle/data/Bird-Species/bird_species/test/", "data_input")
+test_df = concurrent_core.list("/Users/jitendra/Kaggle/data/Bird-Species/bird_species/test/", "data_input")
 
-data_files = parallels_core.get_local_paths(test_df)
+data_files = concurrent_core.get_local_paths(test_df)
 
 print(data_files[0:10])
 
@@ -51,4 +51,4 @@ for image, path in image_path_iter:
     dst_path = os.path.join(tmpdir, species_name, img_file_name)
     os.makedirs(os.path.dirname(dst_path), exist_ok=True)
     writer = tf.keras.utils.save_img(os.path.join(tmpdir, species_name, img_file_name), image)
-    parallels_core.parallels_log_artifact(dst_path, os.path.join("output", species_name))
+    concurrent_core.concurrent_log_artifact(dst_path, os.path.join("output", species_name))

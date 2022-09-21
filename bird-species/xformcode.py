@@ -3,7 +3,7 @@ from tensorflow import keras
 import numpy as np
 import pandas as pd
 import tensorflow_datasets as tfds
-from parallels_plugin import parallels_core
+from concurrent_plugin import concurrent_core
 import os
 import sys
 
@@ -11,9 +11,9 @@ import sys
 print("Arguments if any: ", sys.argv)
 
 #Load model and label dictionary
-model_df = parallels_core.list('/Users/jitendra/Kaggle/data/Bird-Species/bird_species/model/', "model_input")
+model_df = concurrent_core.list('/Users/jitendra/Kaggle/data/Bird-Species/bird_species/model/', "model_input")
 
-model_files = parallels_core.get_local_paths(model_df)
+model_files = concurrent_core.get_local_paths(model_df)
 
 for ff in model_files:
     print(ff)
@@ -37,13 +37,13 @@ def preprocess_image(img_path):
 
 
 #Make Image Dataset
-test_df = parallels_core.list("/Users/jitendra/Kaggle/data/Bird-Species/bird_species/test/", "data_input")
+test_df = concurrent_core.list("/Users/jitendra/Kaggle/data/Bird-Species/bird_species/test/", "data_input")
 
 if test_df.empty:
     print("Empty dataframe nothing to do")
     exit(0)
 
-data_files = parallels_core.get_local_paths(test_df)
+data_files = concurrent_core.get_local_paths(test_df)
 
 print(data_files[1:10])
 

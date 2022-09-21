@@ -7,13 +7,13 @@
 import os
 import mlflow
 import shutil
-from parallels_plugin import parallels_core
+from concurrent_plugin import concurrent_core
 
 
 # In[5]:
 
 
-df = parallels_core.list('isstage5-experiments', input_name='in1')
+df = concurrent_core.list('isstage5-experiments', input_name='in1')
 
 
 # In[ ]:
@@ -25,7 +25,7 @@ print(df.to_string())
 # In[6]:
 
 
-file_list = parallels_core.get_local_paths(df)
+file_list = concurrent_core.get_local_paths(df)
 print(file_list)
 
 
@@ -45,7 +45,7 @@ df['age'] = df.apply(lambda row: os.path.basename(os.path.dirname(row['FileName'
 
 
 age_list = df['age'].to_list()
-file_list = parallels_core.get_local_paths(df)
+file_list = concurrent_core.get_local_paths(df)
 print(file_list)
 
 
@@ -68,7 +68,7 @@ for f, age in zip(file_list, age_list):
     else:
         heart_condition = "healthy"
     print("heart_condition = ", heart_condition)
-    parallels_core.parallels_log_artifact(f, "output", age=age, heart_condition=heart_condition)
+    concurrent_core.concurrent_log_artifact(f, "output", age=age, heart_condition=heart_condition)
 
 
 # In[8]:
