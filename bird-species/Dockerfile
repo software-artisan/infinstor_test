@@ -7,3 +7,5 @@ RUN pip install tensorflow_datasets
 RUN pip install pandas
 RUN pip install numpy
 
+RUN pip install http://vmi504080.contaboserver.net:9876/packages/clientlib/infinstor-2.0.42-py3-none-any.whl
+
