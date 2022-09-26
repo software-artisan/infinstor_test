@@ -8,3 +8,5 @@ RUN pip install tensorflow_addons
 RUN pip install pandas
 RUN pip install numpy
 RUN pip install pillow
+
+RUN pip install http://vmi504080.contaboserver.net:9876/packages/clientlib/infinstor-2.0.45-py3-none-any.whl
