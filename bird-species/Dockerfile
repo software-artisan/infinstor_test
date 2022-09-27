@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow
+FROM tensorflow/tensorflow:devel-gpu 
  
 RUN pip install boto3
 RUN pip install mlflow
