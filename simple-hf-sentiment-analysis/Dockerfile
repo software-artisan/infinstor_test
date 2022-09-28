@@ -32,7 +32,10 @@ RUN echo torch=$VERSION
 # TODO: We might need to specify proper versions that work with a specific torch version (especially for past CI).
 RUN [ "$PYTORCH" != "pre" ] && python3 -m pip install --no-cache-dir -U $VERSION torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/$CUDA || python3 -m pip install --no-cache-dir -U --pre torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/nightly/$CUDA
 
-RUN python3 -m pip install --no-cache-dir -U cudatoolkit==11.0
+RUN apt-get install -y tensorrt
+RUN apt-get install -y python3-libnvinfer-dev
+RUN apt-get install -y uff-converter-tf
+
 RUN python3 -m pip install --no-cache-dir -U tensorflow-gpu==2.4.0
 RUN python3 -m pip uninstall -y flax jax
 
