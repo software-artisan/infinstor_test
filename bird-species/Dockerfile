@@ -1,8 +1,8 @@
-FROM tensorflow/tensorflow
+FROM tensorflow/tensorflow:latest
  
+RUN pip install --force-reinstall tensorflow
 RUN pip install boto3
 RUN pip install mlflow
-RUN pip install tensorflow
 RUN pip install tensorflow_datasets
 RUN pip install pandas
 RUN pip install numpy
