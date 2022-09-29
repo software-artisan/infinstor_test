@@ -9,6 +9,12 @@ import sys
 from concurrent_plugin import concurrent_core
 import pygeoip
 
+
+print("Printing infin_boto3")
+with open('/usr/local/lib/python3.7/site-packages/infinstor/infin_boto3.py') as infh:
+    print(infh.read())
+print("==============================================================================")
+
 print('honeypot: Entered', flush=True)
 df = concurrent_core.list(None)
 
