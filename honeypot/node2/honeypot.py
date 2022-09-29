@@ -1,6 +1,7 @@
 import mlflow
 import os
 import infinstor_mlflow_plugin
+import boto3
 import tempfile
 import pandas as pd
 import json
