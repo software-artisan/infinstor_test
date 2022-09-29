@@ -39,11 +39,11 @@ def preprocess_image(img_path):
 #Make Image Dataset
 test_df = concurrent_core.list("/Users/jitendra/Kaggle/data/Bird-Species/bird_species/test/", "data_input")
 
-if test_df.empty:
-    print("Empty dataframe nothing to do")
-    exit(0)
-
 data_files = concurrent_core.get_local_paths(test_df)
+
+if not data_files:
+    print("No data files nothing to do")
+    exit(0)
 
 print(data_files[1:10])
 
