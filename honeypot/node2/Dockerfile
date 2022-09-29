@@ -12,7 +12,7 @@ RUN pip install mlflow>=1.0 \
     && pip install concurrent_plugin \
     && pip install pygeoip
 
-#RUN pip install http://vmi504080.contaboserver.net:9876/packages/clientlib/infinstor-2.0.45-py3-none-any.whl
+RUN pip install http://vmi504080.contaboserver.net:9876/packages/clientlib/infinstor-2.0.45-py3-none-any.whl
 
 RUN curl -L -o /tmp/GeoIP.dat.gz https://concurrent-sample-data.s3.amazonaws.com/geoip/GeoIP.dat.gz
 RUN gunzip /tmp/GeoIP.dat.gz
