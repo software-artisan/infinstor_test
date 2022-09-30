@@ -66,7 +66,7 @@ if __name__ == "__main__":
             print("  R2: %s" % r2)
 
             mlflow.log_metric("rmse", rmse * (1-epoch*0.01))
-            mlflow.log_metric("r2", r2 (1-epoch*0.01))
-            mlflow.log_metric("mae", mae ((1-epoch*0.01))
+            mlflow.log_metric("r2", r2 * (1-epoch*0.01))
+            mlflow.log_metric("mae", mae * (1-epoch*0.01))
 
         mlflow.sklearn.log_model(lr, "model")
