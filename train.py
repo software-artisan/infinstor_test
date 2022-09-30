@@ -16,10 +16,6 @@ from sklearn.linear_model import ElasticNet
 import mlflow
 import mlflow.sklearn
 
-estimators = sklearn.utils.all_estimators(type_filter=None)
-for name, class_ in estimators:
-    if hasattr(class_, 'predict_proba'):
-        print(name)
 
 def eval_metrics(actual, pred):
     rmse = np.sqrt(mean_squared_error(actual, pred))
