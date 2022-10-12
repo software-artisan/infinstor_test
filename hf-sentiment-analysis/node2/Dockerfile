@@ -15,6 +15,10 @@ ARG INTEL_TORCH_EXT='1.11.0'
 # Example: `cu102`, `cu113`, etc.
 ARG CUDA='cu113'
 
+##update concurrent
+RUN pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/concurrent-plugin/concurrent_plugin-0.3.11-py3-none-any.whl
+RUN pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/clientlib/infinstor-2.0.45-py3-none-any.whl
+
 RUN apt update
 RUN apt install -y git libsndfile1-dev tesseract-ocr espeak-ng python3 python3-pip ffmpeg git-lfs
 RUN git lfs install
@@ -49,11 +53,6 @@ RUN python3 -m pip install --no-cache-dir git+https://github.com/huggingface/acc
 RUN python3 -m pip install --no-cache-dir bitsandbytes
 
 RUN python3 -m pip install --no-cache-dir decord
-
-##update concurrent
-RUN pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/concurrent-plugin/concurrent_plugin-0.3.11-py3-none-any.whl
-RUN pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/clientlib/infinstor-2.0.45-py3-none-any.whl
-
 
 # When installing in editable mode, `transformers` is not recognized as a package.
 # this line must be added in order for python to be aware of transformers.
