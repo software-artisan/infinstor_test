@@ -50,6 +50,10 @@ RUN python3 -m pip install --no-cache-dir bitsandbytes
 
 RUN python3 -m pip install --no-cache-dir decord
 
+##update concurrent
+RUN pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/concurrent-plugin/concurrent_plugin-0.3.11-py3-none-any.whl
+RUN pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/clientlib/infinstor-2.0.45-py3-none-any.whl
+
 # When installing in editable mode, `transformers` is not recognized as a package.
 # this line must be added in order for python to be aware of transformers.
 RUN cd transformers && python3 setup.py develop
