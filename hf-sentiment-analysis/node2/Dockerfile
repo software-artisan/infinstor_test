@@ -21,7 +21,7 @@ RUN git lfs install
 RUN python3 -m pip install --no-cache-dir --upgrade pip
 
 ##update concurrent
-RUN pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/clientlib/infinstor-2.0.46-py3-none-any.whl && pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/concurrent-plugin/concurrent_plugin-0.3.11-py3-none-any.whl
+RUN pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/clientlib/infinstor-2.0.47-py3-none-any.whl && pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/concurrent-plugin/concurrent_plugin-0.3.11-py3-none-any.whl
 
 ARG REF=main
 RUN git clone https://github.com/huggingface/transformers && cd transformers && git checkout $REF
