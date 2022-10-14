@@ -10,6 +10,7 @@ import json
 import sys
 from concurrent_plugin import concurrent_core
 from transformers import pipeline
+import time
 
 print('sentiment_analysis: Entered', flush=True)
 df = concurrent_core.list(None, input_name='tweets')
@@ -42,7 +43,14 @@ negatives = 0
 positives = 0
 for one_local_path in lp:
     print('Begin processing file ' + str(one_local_path), flush=True)
-    jsonarray = pickle.load(open(one_local_path, 'rb'))
+    try:
+        jsonarray = pickle.load(open(one_local_path, 'rb'))
+    except OSError:
+        while True:
+            time.sleep(10)
+            print('Failed waiting for debug')
+            concurrent_core.concurrent_log_artifact('/tmp/fuse_debug.log', '.concurrent/logs')
+
     # for i in jsonarray:
     #   print(json.dumps(i), flush=True)
     df1 = pd.DataFrame(jsonarray, columns=['text'])
