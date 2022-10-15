@@ -45,11 +45,12 @@ for one_local_path in lp:
     print('Begin processing file ' + str(one_local_path), flush=True)
     try:
         jsonarray = pickle.load(open(one_local_path, 'rb'))
-    except OSError:
+    except OSError as ose:
+        print('OSError : ' + str(ose))
         while True:
-            time.sleep(10)
             print('Failed waiting for debug')
             concurrent_core.concurrent_log_artifact('/tmp/fuse_debug.log', '.concurrent/logs')
+            time.sleep(120)
 
     # for i in jsonarray:
     #   print(json.dumps(i), flush=True)
