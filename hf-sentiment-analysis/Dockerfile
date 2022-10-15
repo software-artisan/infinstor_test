@@ -20,9 +20,6 @@ RUN apt install -y git libsndfile1-dev tesseract-ocr espeak-ng python3 python3-p
 RUN git lfs install
 RUN python3 -m pip install --no-cache-dir --upgrade pip
 
-##update concurrent
-RUN pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/clientlib/infinstor-2.0.47-py3-none-any.whl && pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/concurrent-plugin/concurrent_plugin-0.3.11-py3-none-any.whl
-
 ARG REF=main
 RUN git clone https://github.com/huggingface/transformers && cd transformers && git checkout $REF
 RUN python3 -m pip install --no-cache-dir -e ./transformers[dev,onnxruntime]
@@ -58,3 +55,10 @@ RUN python3 -m pip install --no-cache-dir decord
 RUN cd transformers && python3 setup.py develop
 RUN python3 -c "from transformers import pipeline; nlp = pipeline('sentiment-analysis', model='distilbert-base-uncased-finetuned-sst-2-english')"
 RUN ln -s /usr/bin/python3 /usr/bin/python
+
+
+##update concurrent
+ARG CACHEBUST=1
+
+RUN pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/clientlib/infinstor-2.0.46-py3-none-any.whl && pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/concurrent-plugin/concurrent_plugin-0.3.11-py3-none-any.whl
+
