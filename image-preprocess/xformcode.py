@@ -19,11 +19,14 @@ def sharpen_image(image):
     image_sharp = tfa.image.sharpness(image, 10.0)
     return image_sharp
 
-
+print('Environment## 1' , os.environ)
 #Make Image Dataset
 test_df = concurrent_core.list("/Users/jitendra/Kaggle/data/Bird-Species/bird_species/test/", "data_input")
 
+print('Environment## 2' , os.environ)
 data_files = concurrent_core.get_local_paths(test_df)
+
+print('Environment## 3' , os.environ)
 
 print(data_files[0:10])
 

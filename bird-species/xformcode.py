@@ -10,11 +10,14 @@ import sys
 
 print("Arguments if any: ", sys.argv)
 
+print('Environment## 1' , os.environ)
 #Load model and label dictionary
 model_df = concurrent_core.list('/Users/jitendra/Kaggle/data/Bird-Species/bird_species/model/', "model_input")
 
+print('Environment## 2' , os.environ)
 model_files = concurrent_core.get_local_paths(model_df)
 
+print('Environment## 3' , os.environ)
 for ff in model_files:
     print(ff)
     if 'EfficientNetB4' in ff:
