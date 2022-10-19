@@ -1,8 +1,0 @@
-name: docker-example
-
-docker_env:
-  image:  hf-sentiment-analysis-env
-
-entry_points:
-  main:
-    command: "python3 sentiment_analysis.py"
