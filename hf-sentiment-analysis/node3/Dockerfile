@@ -1,6 +1,6 @@
 FROM nvidia/cuda:11.2.2-cudnn8-devel-ubuntu20.04
 LABEL maintainer="Hugging Face"
-ARG CACHEBUST=12
+ARG CACHEBUST=13
 
 ARG DEBIAN_FRONTEND=noninteractive
 
