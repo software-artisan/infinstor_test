@@ -1,6 +1,6 @@
 FROM nvidia/cuda:11.2.2-cudnn8-devel-ubuntu20.04
 LABEL maintainer="Hugging Face"
-ARG CACHEBUST=1
+ARG CACHEBUST=11
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -57,7 +57,5 @@ RUN cd transformers && python3 setup.py develop
 RUN python3 -c "from transformers import pipeline; nlp = pipeline('sentiment-analysis', model='distilbert-base-uncased-finetuned-sst-2-english')"
 RUN python3 -c "from transformers import AutoTokenizer, AutoModelForTokenClassification; tokenizer = AutoTokenizer.from_pretrained('Jean-Baptiste/roberta-large-ner-english'); model = AutoModelForTokenClassification.from_pretrained('Jean-Baptiste/roberta-large-ner-english');"
 RUN ln -s /usr/bin/python3 /usr/bin/python
-
-ARG IGNORECACHE=1
 
 RUN python3 -m pip install --no-cache-dir http://vmi504080.contaboserver.net:9876/packages/clientlib/infinstor-2.0.47-py3-none-any.whl
